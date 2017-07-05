@@ -19,6 +19,7 @@ function getFiles() {
 }
   
 function getLinkToFiles(files) {
+  
   for (var i = 0; i < files.length; i++) {
     var file = files[i];
     
@@ -26,7 +27,8 @@ function getLinkToFiles(files) {
       "path" : file.id
     })
       .then(function (response) {
-        drawAudioElement(response.links[0].url, response.links[0].name);
+        var timestamp = new Date().getUTCMilliseconds();
+        drawAudioElement(response.links[0].url, response.links[0].name, timestamp );
       })
       .catch(function (response) {
         myApp.alert(response,"UPS!");
@@ -34,29 +36,29 @@ function getLinkToFiles(files) {
   }
 }
   
-function drawAudioElement(src, name) {
+function drawAudioElement(src, name, id) {
 
   //reemplazo el 0 por 1 (0 = link, 1 = descarga)
   src = src.replace(/0$/,"1")
-  
+  //var id = 
   var audioElement =
     '<li class="item-content">' +
     '    <div class="item-media">' +
-    '        <img src="./img/sonido-img.png" width="44">' +
+    '        <img src="./img/play.png" width="44" onclick="audioControl(event,'+id+')" data-audio-control="play"/>' +
+    '        <audio>'+
+    '         <source src="'+src+'" type="audio/mpeg">'+
+    '              Not support the audio element.'+
+    '         </audio>'+
     '    </div>' +
     '    <div class="item-inner">' +
     '        <div class="item-title-row">' +
     '        <div class="item-title">'+name+'</div>' +
     '        </div>' +
     '        <div class="item-subtitle audio-controls">' +
-    '            <audio>'+
-    '              <source src="'+src+'" type="audio/mpeg">'+
-    '              Not support the audio element.'+
-    '            </audio>'+
-    '            <i onclick="audioControl(event)" data-audio-control="play" class="material-icons">play_circle_outline</i>' +
-    '            <i onclick="audioControl(event)" data-audio-control="pause" class="material-icons">pause_circle_outline</i>' +
+   // '            <i onclick="audioControl(event)" data-audio-control="play" class="material-icons">play_circle_outline</i>' +
+   // '            <i onclick="audioControl(event)" data-audio-control="pause" class="material-icons">pause_circle_outline</i>' +
    // '            <i onclick="audioControl(event)" data-audio-control="download" class="material-icons clear-right">file_download</i>' +
-    '            <div class="progressbar color-blue audio-controls-progressbar" data-progress="0">' +
+    '            <div class="progressbar color-blue audio-controls-progressbar" id="bar-'+id+'" data-progress="0">' +
     '                <span></span>' +
     '            </div>' +
     '        </div>' +
