@@ -1,2 +1,7 @@
 # PlusSounds
-Coleccion de sonidos, experimento con phonegap y framework7
+
+Una coleccion de sonidos, para experimentar con Phonegap
+
+
+
+  
